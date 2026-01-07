@@ -1,0 +1,34 @@
+:root {
+    color-scheme: var(--mantine-color-scheme);
+    font-family: var(--mantine-font-family);
+  }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--mantine-font-family-headings);
+  }
+  
+  .mantine-font-family {
+    font-family: var(--mantine-font-family);
+  }
+  
+  .mantine-font-family-headings {
+    font-family: var(--mantine-font-family-headings);
+  }
+  
+  ._Puck-portal_1g88c_24 {
+    position: relative;
+    z-index: 999;
+  }
+  p {
+    padding-bottom: 0px;
+  }
+
+  .wrapper {
+    flex-grow: 1;
+    height: 100%;
+  }
