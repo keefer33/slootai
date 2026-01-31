@@ -95,9 +95,9 @@ Generate and return prompt text that includes the tool name.`,
   return (
     <>
       <Badge variant="default" size="md" style={{ cursor: 'pointer' }} onClick={openModal} title="Generate prompt from form data">
-        <Group gap="xs">
+        <Group gap="4">
           {tool?.avatar ? <img src={tool?.avatar} alt={tool?.tool_name} style={{ width: 14, height: 14, borderRadius: '50%' }} /> : <RiMagicLine size={14} />}
-          {tool?.tool_name}
+          {tool?.tool_name && tool.tool_name.length > 25 ? `${tool.tool_name.substring(0, 25)}...` : tool?.tool_name}
           {onDetach && toolId && (
             <ActionIcon
               size="xs"
