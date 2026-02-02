@@ -198,6 +198,7 @@ const usePipedreamStoreBase = create<PipedreamState>((set, get: any) => ({
 
       const client = createFrontendClient({
         externalUserId: userId,
+        tokenCallback: async () => token.token,
       })
       client.connectAccount({
         app: get().selectedApp?.nameSlug,
