@@ -2,6 +2,7 @@ import { showNotification } from '@mantine/notifications'
 import { createFrontendClient } from '@pipedream/sdk/browser'
 import { create } from 'zustand'
 import { endpoint, fetchGet, fetchPost, showError, supabase } from '../utils'
+import { pipedreamApps24 } from './pipedreamApps24'
 import { type Tool as SlootTool } from './toolsStore'
 import createUniversalSelectors from './universalSelectors'
 
@@ -153,11 +154,67 @@ const usePipedreamStoreBase = create<PipedreamState>((set, get: any) => ({
     const searchParams = new URLSearchParams(q)
     const searchQuery = searchParams.get('q') || ''
     const after = searchParams.get('after') || ''
+    const currentApps = get().apps
+    const isInitialLoad = !searchQuery && !after && currentApps.length === 0
+
+    // Use hardcoded initial apps for faster initial load
+    if (isInitialLoad) {
+      // Map hardcoded apps to match PipedreamApp interface
+      const mappedApps: PipedreamApp[] = pipedreamApps24.map((app) => ({
+        id: app.id,
+        name: app.name,
+        nameSlug: app.nameSlug,
+        description: app.description,
+        imgSrc: app.imgSrc,
+        categories: app.categories,
+        actions: [], // Will be populated when app details are fetched
+        configurableProps: [], // Will be populated when app details are fetched
+      }))
+
+      const initialPageInfo = {
+        totalCount: 2500, // Approximate total, will be updated by API call
+        count: mappedApps.length,
+        startCursor: '',
+        endCursor: mappedApps[mappedApps.length - 1]?.id || '',
+      }
+
+      set({ apps: mappedApps })
+      set({ pageInfo: initialPageInfo })
+      set({ hasMoreData: true })
+
+      // Fetch more apps in the background to update pageInfo and get additional apps
+      fetchGet({
+        endpoint: `${endpoint}/pipedream/apps`,
+        headers: { Authorization: `Bearer ${authToken}` },
+        showNotifications: false,
+      })
+        .then((apps) => {
+          if (apps?.pageInfo) {
+            set({ pageInfo: apps.pageInfo })
+            const hasMore = apps.pageInfo.count < apps.pageInfo.totalCount
+            set({ hasMoreData: hasMore })
+          }
+        })
+        .catch(() => {
+          // Silently fail background fetch
+        })
+
+      return {
+        data: mappedApps,
+        pageInfo: initialPageInfo,
+      }
+    }
+
+    // For search queries or pagination, make API call
     const query = searchQuery.length > 0 ? q : after.length > 2 ? `?after=${after}` : ''
-    const apps = await fetchGet({ endpoint: `${endpoint}/pipedream/apps${query}`, headers: { Authorization: `Bearer ${authToken}` }, showNotifications: false })
+    const apps = await fetchGet({
+      endpoint: `${endpoint}/pipedream/apps${query}`,
+      headers: { Authorization: `Bearer ${authToken}` },
+      showNotifications: false,
+    })
     set({ apps: [...get().apps, ...apps.data] })
     set({ pageInfo: apps.pageInfo })
-    // Set hasMoreData based on initial load
+    // Set hasMoreData based on load
     const pageInfo = get().pageInfo
     if (pageInfo) {
       const hasMore = pageInfo.count < pageInfo.totalCount
