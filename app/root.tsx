@@ -2,14 +2,13 @@ import { MantineProvider } from '@mantine/core'
 import mantine from '@mantine/core/styles.css?url'
 import notifications from '@mantine/notifications/styles.css?url'
 import { useEffect } from 'react'
-import { isRouteErrorResponse, Links, Meta, Outlet, redirect, Scripts, ScrollRestoration } from 'react-router'
+import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import useAiStore from '~/lib/store/aiStore'
 import { useAuth } from './lib/hooks/useAuth'
 import { createThemeWithColor } from './lib/theme'
 import NotFound from './pages/root/404'
 import PageLoader from './shared/PageLoader'
 import themecss from './styles/theme.css?url'
-import { getClient } from './lib/supaServerClient'
 
 // Dynamic theme provider component
 function DynamicThemeProvider({ children }: { children: React.ReactNode }) {

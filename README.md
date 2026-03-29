@@ -1,34 +1,74 @@
 # SlootAI
 
-A powerful platform for building intelligent AI agents with multi-model support, extensive API integrations, and custom tool creation.
+## ✨ Overview
 
-**🌐 Visit [sloot.ai](https://sloot.ai) to get started**
+SlootAI is the web app for [sloot.ai](https://sloot.ai): AI agents, Pipedream-powered integrations, custom tools, MCP servers, file management, video tooling, billing, and Coolify-backed cloud resources.
 
-## Features
+## 🌐 Website
 
-- 🤖 **AI Agents** - Build intelligent AI agents using OpenAI GPT-4, Anthropic Claude, Google Gemini, DeepSeek, and more
-- 🔌 **Pipedream Integration** - Connect to 2,500+ APIs and 10,000+ tools through Pipedream
-- 🛠️ **Custom Tools** - Create and manage custom tools and MCP servers for your specific needs
-- 🖥️ **Custom MCP Servers** - Build your own Model Context Protocol (MCP) servers with custom tools, connect to existing servers, or use hosted private servers. Full control over server configuration, authentication, and tool management
-- 📁 **File Management** - Upload, organize, and manage files that your agents can access and process
-- 🎥 **Video Tools** - Comprehensive video processing capabilities including generation, editing, transcription, and analysis
-- 🔒 **Secure API Keys** - Manage your API keys securely with automatic masking, regeneration, and access controls
-- 🎨 **Modern UI** - Built with React Router, Mantine UI, and TypeScript for a smooth developer experience
+[https://sloot.ai](https://sloot.ai)
 
-## Tech Stack
+## ⭐ Features
 
-- **Framework**: React Router (full-stack React framework)
-- **UI Library**: Mantine UI
-- **Language**: TypeScript
-- **Styling**: Custom CSS with theme support
-- **Database**: Supabase
-- **Payments**: Stripe
-- **AI SDKs**: OpenAI, Anthropic, Google GenAI
+- 🤖 **AI agents** — Multi-model agents (OpenAI, Anthropic, Google Gemini, DeepSeek, and more)
+- 🔌 **Pipedream** — Connect thousands of APIs and workflows
+- 🛠️ **Custom tools** — Author and run tools tailored to your workflows
+- 🖥️ **MCP servers** — Host and connect Model Context Protocol servers
+- 📁 **Files** — Upload and organize assets for agents
+- 🎥 **Video tools** — Generation, editing, transcription, and analysis flows
+- 🔒 **API keys** — Create, mask, and rotate keys safely
+- 🎨 **UI** — React Router, Mantine, TypeScript
 
-## Learn More
+## 📁 Project structure
 
-- Visit [sloot.ai](https://sloot.ai) for the live application
-- [React Router Documentation](https://reactrouter.com/)
+```
+app/
+├── pages/
+│   ├── root/           # Home, login, invite, offline, 404
+│   ├── account/        # Billing, profile, API keys
+│   ├── agents/         # Agents list and agent detail
+│   ├── tools/          # Tools catalog and editor
+│   ├── files/          # Member files
+│   ├── mcpservers/     # MCP server list and edit
+│   ├── cloud/          # Coolify-backed cloud (services, databases)
+│   └── pipedream/      # Pipedream connect and app flows
+├── shared/             # AuthWrapper, AccountLayout, layouts
+├── lib/                # Stores, utils, hooks
+└── routes.ts
+```
+
+## 🔗 Integrations
+
+| Integration | Role |
+|-------------|------|
+| 🖥️ [Coolify](https://coolify.io/) | Cloud resources and deployments |
+| 🔌 [Pipedream](https://pipedream.com/) | Workflow and API integrations |
+| ▲ [Vercel AI Gateway](https://vercel.com/ai-gateway) | Optional unified model routing |
+| 🗄️ [Supabase](https://supabase.com/) | Database and authentication |
+| 💳 [Stripe](https://stripe.com/) | Payments |
+
+## 🧱 Tech stack
+
+- 🧭 **React Router** — Full-stack routing
+- ⚛️ **React** — UI
+- 🔷 **TypeScript**
+- 🎨 **Mantine** — Components
+- 🐻 **Zustand** — Client state
+- ⚡ **Vite** — Build and dev server
+- 🤖 **AI SDKs** — OpenAI, Anthropic, Google GenAI, and related clients
+
+## 📜 Scripts
+
+| Command | Purpose |
+|--------|---------|
+| `npm run dev` | ⚡ Dev server with HMR |
+| `npm run build` | 📦 Production build |
+| `npm run start` | 🚀 Serve production build |
+| `npm run typecheck` | 🔷 React Router typegen + `tsc` |
+| `npm run lint` | 🔍 ESLint |
+| `npm run lint:fix` | ✨ ESLint with fixes |
+| `npm run format` | 📝 Prettier check |
+| `npm run format:fix` | ✨ Prettier write |
 
 ---
 
